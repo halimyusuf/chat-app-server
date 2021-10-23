@@ -38,20 +38,20 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@babel/cli": "^7.12.8",
-    "@babel/core": "^7.9.0",
-    "@babel/node": "^7.8.7",
-    "@babel/preset-env": "^7.9.5",
-    "babel-jest": "^25.4.0",
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.8",
+    "@babel/node": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "babel-jest": "^27.3.1",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",
-    "jest": "^25.4.0"
+    "jest": "^27.3.1"
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "mongoose": "^5.10.16"
+    "mongoose": "^6.0.12"
   }
 }
