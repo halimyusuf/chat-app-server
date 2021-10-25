@@ -1,5 +1,5 @@
 import app from './app';
-import config from './config';
+import * as config from './config';
 import socketio from 'socket.io';
 import execSocket from './socket';
 

@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
-import config from '../config';
+import { DB_URL } from '../config';
 
 export default {
   initDB: async () => {
     try {
-      await mongoose.connect(config.DB_URL, {
+      await mongoose.connect(DB_URL, {
         useUnifiedTopology: true,
         useNewUrlParser: true
       });
