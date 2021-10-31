@@ -11,7 +11,7 @@ const channelSchema = mongoose.Schema(
       type: Boolean,
       default: true
     },
-    workspace: {}
+    workspace: { type: mongoose.Schema.Types.ObjectId, ref: 'Workspace' }
   },
   { timestamps: true }
 );

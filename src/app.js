@@ -7,9 +7,10 @@ import cors from 'cors';
 mongoInit.initDB();
 const app = express();
 
+app.get('/', (req, res) => res.send('Ping'));
 app.use(cors());
 app.use(express.json());
-app.use('/', routes);
+routes(app);
 app.use((_req, _res, next) => {
   next(createError(404));
 });

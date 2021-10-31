@@ -1,6 +1,13 @@
-import express from 'express';
-const Router = express.Router();
+import userRouter from './user';
+import workspaceRouter from './workspace';
+import channelRouter from './channel';
 
-Router.get('/', (req, res) => res.send('Hello world'));
+const baseUrl = '/api/v1';
 
-export default Router;
+export default (app) => {
+  app.use(`${baseUrl}/user`, userRouter);
+  app.use(`${baseUrl}/workspace`, workspaceRouter);
+  app.use(`${baseUrl}/channel`, channelRouter);
+};
+
+// Router.get('/', (req, res) => res.send('Hello world'));

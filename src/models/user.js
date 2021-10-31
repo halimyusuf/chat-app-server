@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
 import { jwtSecret } from '../config';
 
 const userSchema = mongoose.Schema(
@@ -19,7 +20,8 @@ const userSchema = mongoose.Schema(
     password: {
       type: String,
       required: true
-    }
+    },
+    avatar: String
     // workspaces: {
     //   type: [mongoose.SchemaTypes.Types.ObjectId],
     //   ref: 'Workspace'
@@ -28,20 +30,19 @@ const userSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-WorkspaceSchema.methods.generateAuthToken = function () {
+userSchema.methods.generateAuthToken = function () {
   const token = jwt.sign(
     {
       id: this._id,
       avatar: this.avatar,
-      firstname: this.first,
+      firstname: this.firstname,
       lastname: this.lastname,
-      email: this.email,
-      isAdmin: this.isAdmin
+      email: this.email
     },
     jwtSecret,
-    { expiresIn: '5m' }
+    { expiresIn: '30m' }
   );
   return token;
 };
 
-export default mongoose.Model('User', userSchema);
+export default mongoose.model('User', userSchema);
