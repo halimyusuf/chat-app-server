@@ -28,9 +28,9 @@ export const createWorkspace = async (req, res, next) => {
     return next(createError(400, `Workspace \'${req.body.name}\' already exists`));
   }
   let workspace = new Workspace(req.body);
-  const member = await addNewMember(workspace._id, req.user.id);
   workspace = await workspace.save();
-  return res.status(200).json({ data: { message: 'success', workspace } });
+  let member = await addNewMember(workspace._id, req.user.id);
+  return res.status(200).json({ data: { message: 'success', workspace, member } });
 };
 
 export const joinWorkspace = async (req, res, next) => {
@@ -45,8 +45,13 @@ async function addNewMember(workspaceId, userId) {
     if (member !== null) {
       return reject(createError(400, 'User already joined workspace'));
     }
-    member = new Member({ user: userId, workspace: workspaceId });
-    await member.save();
-    resolve(member);
+    try {
+      member = new Member({ user: userId, workspace: workspaceId });
+      member = await member.save();
+      member = await Member.populate(member, { path: 'workspace' });
+      resolve(member);
+    } catch (error) {
+      reject(error);
+    }
   });
 }
