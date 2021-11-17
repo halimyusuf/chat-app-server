@@ -17,7 +17,7 @@ export const createUser = async (req, res, next) => {
   user = new User(req.body);
   const newUser = await user.save();
   const token = newUser.generateAuthToken();
-  return res.status(200).json({ data: { message: 'success', token } });
+  return res.status(200).json({ data: { message: 'success', token, user: newUser } });
 };
 
 export const login = async (req, res, next) => {
@@ -36,6 +36,6 @@ export const login = async (req, res, next) => {
   const token = user.generateAuthToken();
   await user.save();
   return res.send({
-    data: { token }
+    data: { token, user }
   });
 };

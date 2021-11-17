@@ -1,10 +1,11 @@
 export default function (io) {
   io.use((socket, next) => {
-    const username = socket.handshake.auth.username;
-    if (!username) {
-      return next(new Error('Invalid username'));
+    const user = socket.handshake.auth;
+    if (!user) {
+      return next(new Error('Invalid user id'));
     }
-    socket.username = username;
+    socket.userId = user.id;
+    socket.username = user.username;
     next();
   });
 
@@ -13,11 +14,16 @@ export default function (io) {
     const users = [];
     for (let [id, socket] of io.of('/').sockets) {
       users.push({
-        userId: id,
+        userId: socket.id,
         username: socket.username
       });
     }
+    console.log(users);
     socket.emit('users', users);
+    socket.broadcast.emit('user connected', {
+      userId: socket.id,
+      username: socket.username
+    });
     // emit all active namespaces
   });
 }
