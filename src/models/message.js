@@ -6,7 +6,7 @@ const messageSchema = mongoose.Schema(
     channel: { type: mongoose.Schema.Types.ObjectId, ref: 'Channel' },
     date: { type: Date, default: Date.now },
     type: { type: String, default: 'text' },
-    content: { type: String }
+    text: { type: String }
   },
   { timestamps: true }
 );
