@@ -17,7 +17,7 @@ export const createChannel = async (req, res, next) => {
   if (channel1 !== null) {
     return next(createError(400, `Channel \'${req.body.name}\' already exists`));
   }
-  let channel = new Channel(req.body);
+  let channel = new Channel({ ...req.body, users: [req.user.id], createdBy: req.user.id });
   channel = await channel.save();
   return res.status(200).json({ data: { message: 'success', channel } });
 };
