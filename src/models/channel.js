@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 const channelSchema = mongoose.Schema(
   {
     users: { type: [mongoose.Schema.Types.ObjectId], ref: 'User' },
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     name: {
       type: String,
       required: true
