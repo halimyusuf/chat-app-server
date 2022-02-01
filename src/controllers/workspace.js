@@ -3,6 +3,7 @@ import _ from 'lodash';
 import Member from '../models/member';
 import Workspace from '../models/workspace';
 import validateInput from '../utils/InputValidation';
+import { checkIfMongoID } from '../utils/utils';
 
 export const fetchWorkspaceUsers = async (req, res, next) => {
   const workspaceId = req.params.workspace;
@@ -41,6 +42,11 @@ export const joinWorkspace = async (req, res, next) => {
 
 async function addNewMember(workspaceId, userId) {
   return new Promise(async (resolve, reject) => {
+    if (!checkIfMongoID(workspaceId)) {
+      return reject(createError(400, 'Invalid workspace.'));
+    } else if (!checkIfMongoID(workspaceId)) {
+      return reject(createError(400, 'Invalid user.'));
+    }
     let member = await Member.findOne({ workspace: workspaceId, user: userId });
     if (member !== null) {
       return reject(createError(400, 'User already joined workspace'));
